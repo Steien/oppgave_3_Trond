@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Trond Steien">
+
+<title>Oppgave 3: Reliabilitet og verktøy for reproduserbar vitenskapelig data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="oppgave_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="oppgave_3_files/libs/quarto-html/quarto.js"></script>
+<script src="oppgave_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="oppgave_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="oppgave_3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="oppgave_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="oppgave_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="oppgave_3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="oppgave_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="oppgave_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Oppgave 3: Reliabilitet og verktøy for reproduserbar vitenskapelig data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Trond Steien </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="spørsmål-1" class="level1">
+<h1>Spørsmål 1</h1>
+<section id="forklar-estimatet-standardfeil-standard-error-se-t-verdi-og-p-verdi-fra-regresjonsmodellene-som-blir-opprettet-her-m1-og-m2." class="level2">
+<h2 class="anchored" data-anchor-id="forklar-estimatet-standardfeil-standard-error-se-t-verdi-og-p-verdi-fra-regresjonsmodellene-som-blir-opprettet-her-m1-og-m2.">Forklar estimatet, standardfeil (standard error = SE), t-verdi og p-verdi fra regresjonsmodellene som blir opprettet her (m1 og m2).</h2>
+<section id="m1-n8" class="level3">
+<h3 class="anchored" data-anchor-id="m1-n8">m1 = n8</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000000</span>, <span class="at">mean =</span> <span class="fl">1.5</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>samp1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">sample</span>(population, <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>samp2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">sample</span>(population, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> samp1)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> samp2)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ 1, data = samp1)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.5322 -1.2523 -0.0883  1.3540  4.8692 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)    1.840      1.251    1.47    0.185
+
+Residual standard error: 3.539 on 7 degrees of freedom</code></pre>
+</div>
+</div>
+</section>
+<section id="m2-n40" class="level3">
+<h3 class="anchored" data-anchor-id="m2-n40">m2 = n=40</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000000</span>, <span class="at">mean =</span> <span class="fl">1.5</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>samp1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">sample</span>(population, <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>samp2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">sample</span>(population, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> samp1)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> samp2)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ 1, data = samp2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.6557 -2.2883  0.2636  2.2549  6.4212 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)   1.5642     0.4774   3.276  0.00221 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.019 on 39 degrees of freedom</code></pre>
+</div>
+</div>
+</section>
+<section id="estimatet" class="level3">
+<h3 class="anchored" data-anchor-id="estimatet">Estimatet</h3>
+<p>Er gjennomsnittsverdien i utvalget. Ved å ta et utvalg(en del) av populasjonen(Den gruppen vi ønsker å si noe om), ønsker vi å si at gjennomsnittet i utvalget er representativ for populasjonen. Det vi ønsker er at estimatet skal representere populasjonen så likt som mulig. Estimatet blir mer presist (nærmere den sanne verdien i populasjon) når utvalgsstørrelsen øker, gitt at kvaliteten på utvalget er bra. (<span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+<p>Estimatet er vår beste gjetning på populasjonens sanne gjennomsnitt. I eksemplet er det brukt 8 og 40 som utvalg (utvalget er tilfeldig valgt fra en populasjon på 1000000 i dette tilfellet). For m1 (som har 8 simulerte deltagere) er estimatet 1.84 mens for m2 (som har 40 simulerte deltagere) er det 1.5642 som er nærmere det faktiske populasjons verdien på 1.5.</p>
+</section>
+<section id="standardfeilen-se" class="level3">
+<h3 class="anchored" data-anchor-id="standardfeilen-se">Standardfeilen (SE)</h3>
+<p>Standardfeil er et statistisk mål som forteller oss hvor presist vårt estimat av populasjonsgjennomsnittet er. Det måler hvor mye vi kan forvente at våre estimater varierer fra utvalg til utvalg, og en mindre standardfeil indikerer at våre estimater er mer pålitelige og sannsynligvis nærmere den sanne verdien i populasjonen. Standardfeilen beregnes ved å dele standardavviket på kvadratroten av utvalgsstørrelsen <span class="math inline">\(SE = \frac{SD}{\sqrt{n}}\)</span>. Standardfeilen går mot 0 når n vokser, men kan aldri bli nøyaktig 0. Det vil si at estimatet blir stadig mer presist når antall observasjoner vokser. Usikkerheten avtar bare ved kvadratroten av n.&nbsp;Det betyr at for å halvere usikkerheten kreves det en firedobling av antall observasjoner (<span class="citation" data-cites="aalen2018statistiske">Aalen et al. (<a href="#ref-aalen2018statistiske" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+<p>I vårt eksempel, med utvalg på 8 og 40 fra en populasjon på 1000000, vil utvalget på 40 gi en mindre standardfeil enn utvalget på 8, noe som betyr at estimatet basert på 40 observasjoner sannsynligvis er nærmere det sanne populasjonsgjennomsnittet. Når utvalgsstørrelsen øker, blir standardfeilen mindre, noe som indikerer økt presisjon i våre estimater. Ved bruk av standardfeil kan det hjelper oss å vurdere hvor sikre vi kan være på våre statistiske konklusjoner og hvor godt våre data representerer den større populasjonen vi studerer (<span class="citation" data-cites="aalen2018statistiske">Aalen et al. (<a href="#ref-aalen2018statistiske" role="doc-biblioref">2018</a>)</span>).</p>
+<p>For m1 er SE 1.251 og for m2 er SE 0.4774 som er betraktelig lavere en m1 siden populasjonutvalget er høyere.</p>
+</section>
+<section id="t-verdi" class="level3">
+<h3 class="anchored" data-anchor-id="t-verdi">t-verdi</h3>
+<p>Er forholdet mellom estimatet og Standardfeil med formelen <span class="math inline">\(t = \frac{\text{estimat}}{\text{SE}}\)</span>. t-verdien Indikerer hvor mange standardfeil estimatet er fra null. En høyere absoluttverdi av t indikerer sterkere bevis mot nullhypotesen, at det ikke er en forskjell. En annen måte å si det på er “hvor langt unna er estimatet fra 0, målt i i antall standard feil” (<span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+<p><span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span> sier også at ved store nok utvalg vil en t-verdi større enn 2 eller mindre enn -2 korrespondere med en en P &lt; 0.05.</p>
+<p>Vi ser at m2 har betraktelig høyere t-verdi som tyder på en mer statistisk signifikant resultat. For m1: <span class="math inline">\(t = \frac{1.84}{1.251} \approx 1.47\)</span> og for m2: <span class="math inline">\(t = \frac{1.5642}{0.4774} \approx 3.276\)</span></p>
+</section>
+<section id="p-verdien" class="level3">
+<h3 class="anchored" data-anchor-id="p-verdien">p-verdien</h3>
+<p>Er et mål på avvik mellom data og nullhypotesen. Vi bruker en statistisk test for å finne p-verdien som er sannsynligheten for å observere en like ekstrem eller mer ekstrem effekt utelukket av tilfeldighet (t-verdi)(<span class="citation" data-cites="hulley2013designing">Hulley et al. (<a href="#ref-hulley2013designing" role="doc-biblioref">2013</a>)</span> ; <span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+<p>I følge <span class="citation" data-cites="hulley2013designing">Hulley et al. (<a href="#ref-hulley2013designing" role="doc-biblioref">2013</a>)</span> så hvis nullhypotesen er sann, og det virkelig ikke er en forskjell i populasjonen. Så er den eneste måten denne studien vi bruker testen på, kunne finne denne effekten i utvalget på, er ved en tilfeldighet. Hvis denne effekten er liten så kan nullhypotesen forkastes til fordel for dens alternativ <span class="math inline">\(\alpha\)</span>, som er dens forutsagte nivå av statistisk signifikans, som oftest er på 0.05.</p>
+<p>Et “ikke signifikant” (p-verdi over 0.05) resultat betyr ikke det ikke er noen assosiasjon i befolkningen; det betyr bare at resultatet observert i utvalget er lite sammenlignet med hva som kan bli observert av en tilfeldighet alene (<span class="citation" data-cites="hulley2013designing">Hulley et al. (<a href="#ref-hulley2013designing" role="doc-biblioref">2013</a>)</span>).</p>
+<p>For m1 er p-verdien 0.185, som er over det vanlige signifikansnivået på 0.05. Dette betyr at vi ikke har tilstrekkelig evidens til å forkaste nullhypotesen basert på dette utvalget. For m2 er p-verdien 0.00221, som er betydelig lavere og under 0.05. Dette indikerer sterk evidens mot (ikke sann) nullhypotesen. Det betyr at det er svært lite sannsynlig at vi ville observere et slikt resultat (eller et mer ekstremt resultat) hvis nullhypotesen var sann. Dette gir oss grunnlag for å forkaste nullhypotesen for m2.”</p>
+</section>
+</section>
+</section>
+<section id="spørsmål-2" class="level1">
+<h1>spørsmål 2</h1>
+<section id="diskuter-hva-som-bidrar-til-de-forskjellige-resultatene-i-de-to-studiene-m1-og-m2." class="level2">
+<h2 class="anchored" data-anchor-id="diskuter-hva-som-bidrar-til-de-forskjellige-resultatene-i-de-to-studiene-m1-og-m2.">Diskuter hva som bidrar til de forskjellige resultatene i de to studiene (m1 og m2).</h2>
+<p>m2 har et større utvalgsstørrelse (n=40) sammenlignet med m1 (n=8).</p>
+<p>Disse resultatene demonstrerer tydelig hvordan en større utvalgsstørrelse fører til mer presise estimater, lavere standardfeil, høyere t-verdier, og lavere p-verdier som beskrevet under spørsmål 1.</p>
+<p>Dette øker vår evne til å oppdage reelle effekter (økt statistisk styrke, beskrevet senere) og reduserer sannsynligheten for type II-feil (falske negativer). Sannsynligheten for type I-feil (falske positiver) forblir konstant på det valgte signifikansnivået (oftest 0,05 eller 5%). Type I-feil skjer når vi ved utregning forkaster en nullhypotese som faktisk er sann i populasjonen. Type II-feil er det som skjer når vi ved utregning ikke forkaster en nullhypotese som faktisk ikke er sann i populasjonen (<span class="citation" data-cites="hulley2013designing">Hulley et al. (<a href="#ref-hulley2013designing" role="doc-biblioref">2013</a>)</span>; <span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+<p>Med andre ord, når vi øker antall deltakere i studien, får vi mer nøyaktige og troverdige funn. Dette gjør det lettere å oppdage virkelige effekter hvis de eksisterer, men endrer ikke sjansen for å feilaktig konkludere at det finnes en effekt når det egentlig ikke gjør det.</p>
+<p>Mindre utvalg som m1 er mer utsatt for tilfeldige variasjoner og større utvalg som m2 er mer stabile representasjon av populasjonen.</p>
+</section>
+</section>
+<section id="spørsmål-3" class="level1">
+<h1>Spørsmål 3</h1>
+<section id="hvorfor-bruker-vi-det-skraverte-området-i-den-nedre-og-øvre-halen-av-t-fordelingen" class="level2">
+<h2 class="anchored" data-anchor-id="hvorfor-bruker-vi-det-skraverte-området-i-den-nedre-og-øvre-halen-av-t-fordelingen">Hvorfor bruker vi det skraverte området i den nedre og øvre halen av t-fordelingen?</h2>
+<p>Det skraverte området i den nedre og øvre halen av t-fordelingen representerer regionen vi bruker for å beregne p-verdien i en hypotesetest. P-verdien er sannsynligheten for å observere en t-verdi like ekstrem eller mer ekstrem enn den observerte, gitt at nullhypotesen er sann. Med andre ord viser dette området hvor sannsynlig det er at vi ville fått et resultat som observert, eller mer ekstremt, ved en tilfeldighet hvis nullhypotesen var sann. Det skraverte området endres basert på valgt signifikansnivå, ofte satt til 0.05. I en to-hale test summerer vi de skraverte områdene i begge haler for å få p-verdien, som hjelper oss å vurdere statistisk signifikans og styrken av bevisene mot nullhypotesen. Det er også mulig å utføre en en-hale test. Forskjellen ligger i at en en-hale test (også kalt ensidig test) tester om parameteren er større enn eller mindre enn en spesifisert verdi, mens en to-hale test (også kalt tosidig test) tester om parameteren er forskjellig fra en spesifisert verdi i begge retninger. Valget mellom en-hale og to-hale test avhenger av forskningsspørsmålet og hypotesene (<span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+<p>Som nevnt noen ganger allerede, desto større utvalg vi har, jo mer presise estimater får vi, noe som kan redusere p-verdien og dermed indikere sterkere bevis mot nullhypotesen.</p>
+</section>
+</section>
+<section id="mange-studier" class="level1">
+<h1>Mange studier</h1>
+<p>Det er simulert 1000 studier og lagret.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frames to store the model estimates</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>results_8 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">estimate =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">se =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">pval =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">n =</span> <span class="dv">8</span>)  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>results_40 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">estimate =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">se =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">pval =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                      <span class="at">n =</span> <span class="dv">40</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># A for loop used to sample 1000 studies, each iteration (i) will draw a new sample</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># from the population. </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw a sample </span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  samp1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">sample</span>(population, <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  samp2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">sample</span>(population, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model the data</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> samp1)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> samp2)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract values from the models</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  results_8[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m1))[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  results_8[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m1))[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  results_8[i, <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m1))[<span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  results_40[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m2))[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  results_40[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m2))[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  results_40[i, <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m2))[<span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the results in a combined data frame</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(results_8, results_40)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="spørsmål-4" class="level1">
+<h1>Spørsmål 4</h1>
+<section id="beregn-standardavviket-sd-for-variabelen-estimate-og-gjennomsnittet-av-variabelen-standardfeil-se-for-hver-av-studiens-utvalgsstørrelser-8-og-40.-forklar-hvorfor-disse-tallene-er-veldig-like.-hvordan-kan-du-definere-standardfeilen-se-i-lys-av-disse-beregningene" class="level2">
+<h2 class="anchored" data-anchor-id="beregn-standardavviket-sd-for-variabelen-estimate-og-gjennomsnittet-av-variabelen-standardfeil-se-for-hver-av-studiens-utvalgsstørrelser-8-og-40.-forklar-hvorfor-disse-tallene-er-veldig-like.-hvordan-kan-du-definere-standardfeilen-se-i-lys-av-disse-beregningene">Beregn standardavviket (SD) for variabelen estimate, og gjennomsnittet av variabelen standardfeil (SE) for hver av studiens utvalgsstørrelser (8 og 40). Forklar hvorfor disse tallene er veldig like. Hvordan kan du definere standardfeilen (SE) i lys av disse beregningene?</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dele opp results dataframen basert på utvalgsstørrelse</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>results_8 <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">==</span> <span class="dv">8</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>results_40 <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">==</span> <span class="dv">40</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Beregn standardavvik og gjennomsnitt for hver gruppe</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>sd_estimate_8 <span class="ot">&lt;-</span> <span class="fu">sd</span>(results_8<span class="sc">$</span>estimate) </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>mean_se_8 <span class="ot">&lt;-</span> <span class="fu">mean</span>(results_8<span class="sc">$</span>se)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>sd_estimate_40 <span class="ot">&lt;-</span> <span class="fu">sd</span>(results_40<span class="sc">$</span>estimate)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>mean_se_40 <span class="ot">&lt;-</span> <span class="fu">mean</span>(results_40<span class="sc">$</span>se)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">### Utvalgsstørrelse 8</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="do">#### Standardavvik (SD) for estimatene: `r sd_estimate_8`</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="do">#### Gjennomsnittlig Standardfeil (SE): `r mean_se_8`</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="do">### Utvalgsstørrelse 40</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="do">#### Standardavvik (SD) for estimatene: `r sd_estimate_40`</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="do">#### Gjennomsnittlig Standardfeil (SE): `r mean_se_40`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="utvalgsstørrelse-8" class="level3">
+<h3 class="anchored" data-anchor-id="utvalgsstørrelse-8">Utvalgsstørrelse 8</h3>
+<section id="standardavvik-sd-for-estimatene-1.0708432" class="level4">
+<h4 class="anchored" data-anchor-id="standardavvik-sd-for-estimatene-1.0708432">Standardavvik (SD) for estimatene: 1.0708432</h4>
+</section>
+<section id="gjennomsnittlig-standardfeil-se-1.0213745" class="level4">
+<h4 class="anchored" data-anchor-id="gjennomsnittlig-standardfeil-se-1.0213745">Gjennomsnittlig Standardfeil (SE): 1.0213745</h4>
+</section>
+</section>
+<section id="utvalgsstørrelse-40" class="level3">
+<h3 class="anchored" data-anchor-id="utvalgsstørrelse-40">Utvalgsstørrelse 40</h3>
+<section id="standardavvik-sd-for-estimatene-0.4838475" class="level4">
+<h4 class="anchored" data-anchor-id="standardavvik-sd-for-estimatene-0.4838475">Standardavvik (SD) for estimatene: 0.4838475</h4>
+</section>
+<section id="gjennomsnittlig-standardfeil-se-0.4696954" class="level4">
+<h4 class="anchored" data-anchor-id="gjennomsnittlig-standardfeil-se-0.4696954">Gjennomsnittlig Standardfeil (SE): 0.4696954</h4>
+<p>Standardavviket for estimatene viser hvor mye estimatene variere fra gjennomsnittet, mens gjennomsnittet av Standardfeil gir oss en indikasjon på hvor mye usikkerhet det er i disse estimatene. Når tallene er like, kan det tyde på at variasjonen i estimatene er konsistent med usikkerheten som er estimert av Standardfeilen, noe som burde være tilfellet i en god statistisk modell(<span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+<p>Standardfeilen kan defineres som et mål på hvor mye vi forventer at estimatet vil variere fra det sanne populasjongjennomsnittet. Det gir oss en indikasjon på presisjonen til estimatet; jo lavere SE, desto mer presist er estimatet(<span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+</section>
+</section>
+</section>
+</section>
+<section id="spørsål-5" class="level1">
+<h1>Spørsål 5</h1>
+<section id="opprett-et-histogram-brukt-eksempelkode-av-p-verdiene-fra-hver-utvalgsstørrelse.-hvordan-tolker-du-disse-histogrammene-hva-forteller-de-deg-om-effekten-av-utvalgsstørrelse-på-statistisk-styrke" class="level2">
+<h2 class="anchored" data-anchor-id="opprett-et-histogram-brukt-eksempelkode-av-p-verdiene-fra-hver-utvalgsstørrelse.-hvordan-tolker-du-disse-histogrammene-hva-forteller-de-deg-om-effekten-av-utvalgsstørrelse-på-statistisk-styrke">Opprett et histogram (Brukt eksempelkode) av p-verdiene fra hver utvalgsstørrelse. Hvordan tolker du disse histogrammene, hva forteller de deg om effekten av utvalgsstørrelse på statistisk styrke?</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example code for copy and paste</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A two facets histogram can be created with ggplot2</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(pval)) <span class="sc">+</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="oppgave_3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Histogrammet n=8 viser en spredt fordeling av p-verdiene. Selv om flere av p-verdiene er nært 0.00, har den også mange som er mye høyere. Som tyder på lavere statistisk styrke. De lave p-verdiene kan være tilfeldige og er ikke nødvendigvis pålitlige((<span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+<p>Histogrammet n=40 viser en veldig konsentrert fordeling av p-verdiene nært 0.00. Dette indikerer at vi har flere signifikante resultater. Dette er fordi større utvalg redusere usikkerheten i estimatene. Dette gir et klarere bilde av hva som faktisk skjer i populasjonen((<span class="citation" data-cites="spiegelhalter2020art">Spiegelhalter (<a href="#ref-spiegelhalter2020art" role="doc-biblioref">2020</a>)</span>).</p>
+</section>
+</section>
+<section id="spørsmål-6" class="level1">
+<h1>spørsmål 6</h1>
+<section id="beregn-antall-studier-fra-hver-utvalgsstørrelse-som-erklærer-en-statistisk-signifikant-effekt-spesifiser-en-terskel-for-alpha-ditt-signifikansnivå." class="level2">
+<h2 class="anchored" data-anchor-id="beregn-antall-studier-fra-hver-utvalgsstørrelse-som-erklærer-en-statistisk-signifikant-effekt-spesifiser-en-terskel-for-alpha-ditt-signifikansnivå.">Beregn antall studier fra hver utvalgsstørrelse som erklærer en statistisk signifikant effekt (spesifiser en terskel for <span class="math inline">\(\alpha\)</span>, ditt signifikansnivå).</h2>
+<p>Standarden for signifikansnivået i statistiske tester 0.05. og er det vi fikk av eksempelkoden.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the proportion of tests below a certain p-value for each </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>results_table <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pval <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(n) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sig_results =</span> <span class="fu">n</span>()<span class="sc">/</span><span class="dv">1000</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Vis tabellen penere og gjør at jeg kan refere til den i teksten (om jeg skjønte PerplexityAI riktig)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(results_table, <span class="at">caption =</span> <span class="st">"Andel signifikante resultater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Andel signifikante resultater</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">sig_results</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.227</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.865</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hvordan results kan bli refferert til i teksten</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">##- For \( n = `r results_table$n[1]` \): `r results_table$sig_results[1]`</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">##- For \( n = `r results_table$n[2]` \): `r results_table$sig_results[2]`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Dette betyr at andelen signifikante resultater (p &lt; 0.05) for n=8 er 22.7% og for n=40 er det 86.5%. Dette viser tydelig at med større utvalg er det mye mer sannsynlig å oppdage signifikante resultater, noe som bekrefter at større utvalg forbedrer den statistiske styrken## Opprett et histogram (Brukt eksempelkode) av p-verdiene fra hver utvalgsstørrelse. Hvordan tolker du disse histogrammene, hva forteller de deg om effekten av utvalgsstørrelse på statistisk styrke?</p>
+<p>Jeg prøver å senke terskelen for <span class="math inline">\(\alpha\)</span>, til 0.01. Siden oppgaven spør etter å spesifisere en terskel for <span class="math inline">\(\alpha\)</span>, mitt signifikansnivå.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tell antall studier med p-verdier under alpha for hver utvalgsstørrelse</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>results_table001 <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pval <span class="sc">&lt;</span> <span class="fl">0.01</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(n) <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sig_results =</span> <span class="fu">n</span>()<span class="sc">/</span><span class="dv">1000</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Vis resultatene med knitr</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(results_table001, <span class="at">caption =</span> <span class="st">"Andel signifikante resultater med terskel 0.01"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Andel signifikante resultater med terskel 0.01</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">sig_results</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.074</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.666</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Nå ble andelen signifikante resultater (p &lt; 0.01) for n=8 til 7.4% og for n=40 er det 66.6%. Dette viser tydelig at med strengere krav til hva som definere signifikant blir også andelen signifikante resultater mindre. Påstanden fra tidligere om at større utvalg forbedrer den statistiske styrken står fortsatt. Hvorfor en velger strengere signifikant kan være blant annet for å redusere falske posestiver (<span class="citation" data-cites="hulley2013designing">Hulley et al. (<a href="#ref-hulley2013designing" role="doc-biblioref">2013</a>)</span>).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Tell antall studier med p-verdier under alpha for hver utvalgsstørrelse</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>results_table002 <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pval <span class="sc">&lt;</span> <span class="fl">0.10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(n) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sig_results =</span> <span class="fu">n</span>()<span class="sc">/</span><span class="dv">1000</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Vis resultatene med knitr</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(results_table002, <span class="at">caption =</span> <span class="st">"Andel signifikante resultater med terskel 0.10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Andel signifikante resultater med terskel 0.10</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">sig_results</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.371</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0.926</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="spørsmål-7" class="level1">
+<h1>Spørsmål 7</h1>
+<section id="ved-bruk-av-pwr-pakken-kalkuler-styrken-av-en-one-sample-t-test-med-en-effekt-størrelse-på-1.53-den-spesifiserte-signifikansnivå-og-utvalgsstørrelse-er-8-og-40.-forklar-resultatene-ut-ifra-simuleringen." class="level2">
+<h2 class="anchored" data-anchor-id="ved-bruk-av-pwr-pakken-kalkuler-styrken-av-en-one-sample-t-test-med-en-effekt-størrelse-på-1.53-den-spesifiserte-signifikansnivå-og-utvalgsstørrelse-er-8-og-40.-forklar-resultatene-ut-ifra-simuleringen.">Ved bruk av pwr pakken, kalkuler styrken av en “one-sample t-test” med en effekt størrelse på 1.5/3, den spesifiserte signifikansnivå og utvalgsstørrelse er 8 og 40. Forklar resultatene ut ifra simuleringen.</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Beregn styrke for n = 8</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(<span class="at">n =</span> <span class="dv">8</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">d =</span> <span class="fl">1.5</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">type =</span> <span class="st">"one.sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     One-sample t test power calculation 
+
+              n = 8
+              d = 0.5
+      sig.level = 0.05
+          power = 0.232077
+    alternative = two.sided</code></pre>
+</div>
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beregn styrke for n = 40</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pwr.t.test</span>(<span class="at">n =</span> <span class="dv">40</span>, <span class="at">sig.level =</span> <span class="fl">0.05</span>, <span class="at">d =</span> <span class="fl">1.5</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">type =</span> <span class="st">"one.sample"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     One-sample t test power calculation 
+
+              n = 40
+              d = 0.5
+      sig.level = 0.05
+          power = 0.8693981
+    alternative = two.sided</code></pre>
+</div>
+</div>
+<section id="resultatet-viser" class="level3">
+<h3 class="anchored" data-anchor-id="resultatet-viser">Resultatet viser:</h3>
+<section id="for-utvalgsstørrelse-n-8" class="level4">
+<h4 class="anchored" data-anchor-id="for-utvalgsstørrelse-n-8">for utvalgsstørrelse (n): 8</h4>
+<p>Statistisk styrke (power): 0.232077</p>
+</section>
+<section id="og-for-utvalgsstørrelse-n-40" class="level4">
+<h4 class="anchored" data-anchor-id="og-for-utvalgsstørrelse-n-40">og for utvalgsstørrelse (n): 40</h4>
+<p>Statistisk styrke (power): 0.8693981</p>
+<p>Med et utvalgsstørrelse på 8 har testen en statistisk styrke på bare omtrent 23.2%. Med en utvalgsstørrelse på 40 øker den statistiske styrken til omtrent 86.9%.</p>
+<p>Dette betyr at hvis det faktisk er en reell effekt, er det henholdsvis omtrent 23.2% på n=8 og omtrent 86.9% på n=40 for at testen vil oppdage denne effekten.</p>
+<p>Resultatet viser at det er tydelig at utvalgstørrelsen påvirker den statistiske styrken. Dette understreker viktigheten av å ha tilstrekkelig utvalgsstørrelse i studier for å sikre at man kan oppdage reelle effekter når de eksisterer. Lav styrke kan føre til at viktige funn overses, mens høyere styrke gir mer pålitelige resultater.</p>
+</section>
+</section>
+</section>
+<section id="mange-studier-uten-populasjons-effect" class="level2">
+<h2 class="anchored" data-anchor-id="mange-studier-uten-populasjons-effect">Mange studier uten populasjons effect</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frames to store the model estimates</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>results_8 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">estimate =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">se =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">pval =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">n =</span> <span class="dv">8</span>)  </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>results_40 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">estimate =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">se =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                      <span class="at">pval =</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">1000</span>), </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">n =</span> <span class="dv">40</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># A for loop used to sample 1000 studies, each iteration (i) will draw a new sample</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># from the population. </span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw a sample </span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  samp1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">sample</span>(population, <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  samp2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">sample</span>(population, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model the data</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> samp1)</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> samp2)</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract values from the models</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  results_8[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m1))[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  results_8[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m1))[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  results_8[i, <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m1))[<span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  results_40[i, <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m2))[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>  results_40[i, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m2))[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  results_40[i, <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(m2))[<span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the results in a combined data frame</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>results_null <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(results_8, results_40)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="ved-å-bruke-den-nye-datarammen-med-resultater-fra-studien-med-en-gjennomsnittlig-effect-på-0-lag-et-nytt-histogram." class="level3">
+<h3 class="anchored" data-anchor-id="ved-å-bruke-den-nye-datarammen-med-resultater-fra-studien-med-en-gjennomsnittlig-effect-på-0-lag-et-nytt-histogram.">Ved å bruke den nye datarammen med resultater fra studien med en gjennomsnittlig effect på 0, lag et nytt histogram.</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A two facets histogram can be created with ggplot2</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>results_null <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(pval)) <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="oppgave_3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="spørsmål-8" class="level1">
+<h1>Spørsmål 8</h1>
+<section id="med-et-signifikansnivå-på-5-hvor-mange-studier-ville-gi-deg-et-falskt-positivt-resultat-hvis-du-gjorde-mange-gjentatte-studier" class="level2">
+<h2 class="anchored" data-anchor-id="med-et-signifikansnivå-på-5-hvor-mange-studier-ville-gi-deg-et-falskt-positivt-resultat-hvis-du-gjorde-mange-gjentatte-studier">Med et signifikansnivå på 5%, hvor mange studier ville gi deg et ‘falskt positivt’ resultat hvis du gjorde mange gjentatte studier?</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Vis kode</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tell antall falske positive resultater</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>false_positives <span class="ot">&lt;-</span> <span class="fu">sum</span>(results_null<span class="sc">$</span>pval <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vis resultatet</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>false_positives</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 93</code></pre>
+</div>
+</div>
+<p>Falsk positive resultater er resultater som forkastes selv om nullhypotesen er sann. Siden vi har simulert en populasjon der det ikke skal være en reel effekt mellom behandling og kontroll, skal vi i teorien få ut et tall som er i nærheten av det vi setter signifikanten på. Ved et signifikansnivå på 5% (0.05), burde tallet være ca. 50 ved 1000 simuleringer. Jeg fikk imidlertid ut 93, som vil si at jeg har 9.3% falske positive. Siden dette er en simulering så har det i dette tilfellet ført til flere tilfeldige variasjoner som resulterer i falske positive. Dette illustrere et viktig poeng i statistikk, selv når det ikke er en reel effekt, kan man se et betydelig antall falske positive resultater. Dette understreker betydningen av replikasjon i forskning.</p>
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-aalen2018statistiske" class="csl-entry" role="listitem">
+Aalen, Odd O., Arnoldo Frigessi, Tron Anders Moger, Ida Scheel, Eva Skovlund, and Marit B. Veierød. 2018. <em>Statistiske Metoder i Medisin Og Helsefag</em>. 2nd ed. Oslo: Gyldendal akademisk.
+</div>
+<div id="ref-hulley2013designing" class="csl-entry" role="listitem">
+Hulley, Stephen B., Steven R. Cummings, Warren S. Browner, Deborah G. Grady, and Thomas B. Newman. 2013. <em>Designing Clinical Research</em>. 4th ed. Philadelphia, PA: Lippincott Williams &amp; Wilkins.
+</div>
+<div id="ref-spiegelhalter2020art" class="csl-entry" role="listitem">
+Spiegelhalter, David. 2020. <em>The Art of Statistics: Learning from Data</em>. London: Penguin Books.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
