@@ -13,9 +13,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Spørsmål 1
-
-## Forklar estimatet, standardfeil (standard error = SE), t-verdi og p-verdi fra regresjonsmodellene som blir opprettet her (m1 og m2).
+Dette er et arbeidskrav i faget IDR4000-1 24H Kvantitativ metode og statistikk, for master i trenings fysiologi. Vi har fått utdelt noen eksempelkoder som simulere statistikk og utregninger i to utvalg av en populasjon. En med utvalgstørrelse på 8, og en med utvalgstørrelse 40. Først blir utregning fra eksempelkodene presentert også svarer jeg på spørsmålene i oppgaven.
 
 ### m1 = n8
 
@@ -59,7 +57,9 @@ m2 <- lm(y ~ 1, data = samp2)
 summary(m2)
 ```
 
+# Spørsmål 1
 
+## Forklar estimatet, standardfeil (standard error = SE), t-verdi og p-verdi fra regresjonsmodellene som blir opprettet her (m1 og m2).
 
 ### Estimatet
 
@@ -97,7 +97,7 @@ I følge @hulley2013designing så hvis nullhypotesen er sann, og det virkelig ik
 
 Et "ikke signifikant" (p-verdi over 0.05) resultat betyr ikke det ikke er noen assosiasjon i befolkningen; det betyr bare at resultatet observert i utvalget er lite sammenlignet med hva som kan bli observert av en tilfeldighet alene (@hulley2013designing).
 
-For m1 er p-verdien 0.185, som er over det vanlige signifikansnivået på 0.05. Dette betyr at vi ikke har tilstrekkelig evidens til å forkaste nullhypotesen basert på dette utvalget. For m2 er p-verdien 0.00221, som er betydelig lavere og under 0.05. Dette indikerer sterk evidens mot (ikke sann) nullhypotesen. Det betyr at det er svært lite sannsynlig at vi ville observere et slikt resultat (eller et mer ekstremt resultat) hvis nullhypotesen var sann. Dette gir oss grunnlag for å forkaste nullhypotesen for m2."
+For m1 er p-verdien 0.185, som er over det vanlige signifikansnivået på 0.05. Dette betyr at vi ikke har tilstrekkelig evidens til å forkaste nullhypotesen basert på dette utvalget. For m2 er p-verdien 0.00221, som er betydelig lavere og under 0.05. Dette indikerer sterk evidens mot (ikke sann) nullhypotesen. Det betyr at det er svært lite sannsynlig at vi ville observere et slikt resultat (eller et mer ekstremt resultat) hvis nullhypotesen var sann. Dette gir oss grunnlag for å forkaste nullhypotesen for m2.
 
 # spørsmål 2
 
@@ -107,7 +107,7 @@ m2 har et større utvalgsstørrelse (n=40) sammenlignet med m1 (n=8).
 
 Disse resultatene demonstrerer tydelig hvordan en større utvalgsstørrelse fører til mer presise estimater, lavere standardfeil, høyere t-verdier, og lavere p-verdier som beskrevet under spørsmål 1.
 
-Dette øker vår evne til å oppdage reelle effekter (økt statistisk styrke, beskrevet senere) og reduserer sannsynligheten for type II-feil (falske negativer). Sannsynligheten for type I-feil (falske positiver) forblir konstant på det valgte signifikansnivået (oftest 0,05 eller 5%). Type I-feil skjer når vi ved utregning forkaster en nullhypotese som faktisk er sann i populasjonen. Type II-feil er det som skjer når vi ved utregning ikke forkaster en nullhypotese som faktisk ikke er sann i populasjonen (@hulley2013designing; @spiegelhalter2020art).
+Dette øker vår evne til å oppdage reelle effekter (økt statistisk styrke) og reduserer sannsynligheten for type II-feil (falske negativer). Sannsynligheten for type I-feil (falske positiver) forblir konstant på det valgte signifikansnivået (oftest 0,05 eller 5%). Type I-feil skjer når vi ved utregning forkaster en nullhypotese som faktisk er sann i populasjonen. Type II-feil er det som skjer når vi ved utregning ikke forkaster en nullhypotese som faktisk ikke er sann i populasjonen (@hulley2013designing; @spiegelhalter2020art).
 
 Med andre ord, når vi øker antall deltakere i studien, får vi mer nøyaktige og troverdige funn. Dette gjør det lettere å oppdage virkelige effekter hvis de eksisterer, men endrer ikke sjansen for å feilaktig konkludere at det finnes en effekt når det egentlig ikke gjør det.
 
@@ -261,7 +261,7 @@ knitr::kable(results_table, caption = "Andel signifikante resultater")
 ```
 
 
-Dette betyr at andelen signifikante resultater (p < 0.05) for n=8 er 22.7% og for n=40 er det 86.5%. Dette viser tydelig at med større utvalg er det mye mer sannsynlig å oppdage signifikante resultater, noe som bekrefter at større utvalg forbedrer den statistiske styrken
+Dette betyr at antall studier som erklærer en statistisk signifikant effekt er (p < 0.05) for n=8 er 22.7% og for n=40 er det 86.5%. Dette viser tydelig at med større utvalg er det mye mer sannsynlig å oppdage signifikante resultater, noe som bekrefter at større utvalg forbedrer den statistiske styrken
 
 Jeg prøver å senke terskelen for $\alpha$, til 0.01. Siden oppgaven spør etter å spesifisere en terskel for $\alpha$, mitt signifikansnivå.
 
@@ -279,9 +279,9 @@ knitr::kable(results_table001, caption = "Andel signifikante resultater med ters
 ```
 
 
-Nå ble andelen signifikante resultater (p < 0.01) for n=8 til 7.4% og for n=40 er det 66.6%. Dette viser tydelig at med strengere krav til hva som definere signifikant blir også andelen signifikante resultater mindre. Påstanden fra tidligere om at større utvalg forbedrer den statistiske styrken står fortsatt. Hvorfor en velger strengere signifikant kan være blant annet for å redusere falske posestiver (@hulley2013designing).
+Nå ble antall studier som erklærer en statistisk signifikant effekt (p < 0.01) for n=8 til 7.4% og for n=40 er det 66.6%. Dette viser tydelig at med strengere krav til hva som definerer signifikant blir også andelen signifikante resultater mindre. Påstanden fra tidligere om at større utvalg forbedrer den statistiske styrken står fortsatt. Hvorfor en velger strengere signifikant kan være blant annet for å redusere falske posestiver for å være enda sikrere i konklusjonen (@aalen2018statistiske).
 
-Jeg gjør det igjen med $\alpha$
+Jeg gjør det igjen med å øke terskelen for $\alpha$ til 0.10
 
 ```{r}
 library(dplyr)
@@ -296,7 +296,9 @@ results_table002 <- results %>%
 knitr::kable(results_table002, caption = "Andel signifikante resultater med terskel 0.10")
 ```
 
-Ikke uventet økte andelen signifikante resultater til 37.1% for n=8 og 92.6% for n=40. 
+Ikke uventet økte antall studier som erklærer en statistisk signifikant effekt til 37.1% for n=8 og 92.6% for n=40. Det kan være hensiktsmessig å øke signifikansnivået hvis det for eksempel bare skal se om det er en effekt og falske posestiver ikke er farlig for det vi skal se på(@aalen2018statistiske).
+
+Når man endrer signifikansnivået ($\alpha$) i en statistisk test, oppstår det en avveining mellom type I og type II feil. Senking av $\alpha$ reduserer sannsynligheten for type I-feil (falske positiver), men øker samtidig risikoen for type II-feil (falske negativer). Motsatt vil en økning av $\alpha$ føre til større sannsynlighet for type I-feil, men redusere risikoen for type II-feil. Denne avveiningen er uunngåelig i statistisk testing, og valg av signifikansnivå bør reflektere studiens kontekst, inkludert de relative kostnadene ved å gjøre hver type feil. Tradisjonelt foretrekkes det å minimere type I-feil, noe som forklarer de vanlige signifikansnivåene på 1% eller 5%. I spesielle tilfeller, som ved testing av potensielt farlige bivirkninger, kan det imidlertid være nødvendig å prioritere reduksjon av type II-feil over type I-feil(@aalen2018statistiske).
 
 # Spørsmål 7
 
